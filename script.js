@@ -14,7 +14,7 @@ $( document ).ready(function() {
             var val_all = []
             for (const [key, value] of Object.entries(convArr)) {
                 if(key != energyType) {
-                    val_all.push({key: key, value: (val_joules / value)})
+                    val_all.push({ name: key, value: val_joules / value });
                 }
             }
             return val_all
@@ -95,7 +95,7 @@ $( document ).ready(function() {
       var results = calculateResults(amount); // Retrieve the results from calculateResults
 
       var conversionsHtmlString = "<div class='row mt-3 mb-3'>";
-      for (const [key, value] of Object.entries(conversions)) {
+      for (const value of conversions) {
         if (value.value > 1 && value.value < 1000) {
           conversionsHtmlString += "<div class='col mb-3' >" +
             "<div class='d-flex align-items-center justify-content-center' style='color: white; min-height: 150px; border-radius: 25px; border: 2px solid white; background-color: #2596be;'>" +
