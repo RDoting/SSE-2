@@ -80,19 +80,6 @@ function calculateResults(amount) {
   // Sort the conversions based on priority
   const sortedConversions = conversions.sort((a, b) => b.prioritize - a.prioritize);
 
-   for(var i of sortedConversions) {
-            htmlString += '<div class="col mb-5">' +
-                            '<div class="card" style="min-width: 200px; min-height: 150px; border-radius: 25px; border: 2px solid white; background-color: #327849">' +
-                                '<div class="card-body">' +
-                                    '<h5 class="card-title text-white">' + i.name +'</h5>' +
-                                    '<h6 class="card-subtitle text-white">' + i.time.toFixed(2) + " " + i.display + '</h6>' +
-                                    '<p class="card-text text-white">' + i.pre_name + " " + i.amount + " " + i.type + '</p>' +
-                                '</div>' +
-                            '</div>' +
-                           '</div>'
-        }
-        $('#examples').html(htmlString);
-
   // Return the sorted conversions
   return sortedConversions;
 }
@@ -105,21 +92,19 @@ function reload() {
   var amount = $('#amount').val();
   var energyType = $('#energyType').val();
   var conversions = calulateTo(amount, energyType); // Retrieve the conversions array
+  var results = calculateResults(amount); // Retrieve the results from calculateResults
 
-  var htmlString = "<div class='row mt-3 mb-3'>";
+  var conversionsHtmlString = "<div class='row mt-3 mb-3'>";
   for (const [key, value] of Object.entries(conversions)) {
-    // Generate HTML based on the conversions
     if (value.value > 1 && value.value < 1000) {
-      htmlString +=
-        "<div class='col mb-3'>" +
+      conversionsHtmlString += "<div class='col mb-3' >" +
         "<div class='d-flex align-items-center justify-content-center' style='color: white; min-height: 150px; border-radius: 25px; border: 2px solid white; background-color: #2596be;'>" +
         value.value.toFixed(2) +
         " " +
         value.key +
         "</div></div>";
     } else {
-      htmlString +=
-        "<div class='col mb-3'>" +
+      conversionsHtmlString += "<div class='col mb-3'>" +
         "<div class='d-flex align-items-center justify-content-center' style='color: white; min-height: 150px; border-radius: 25px; border: 2px solid white; background-color: #2596be;'>" +
         value.value.toExponential(2) +
         " " +
@@ -127,8 +112,22 @@ function reload() {
         "</div></div>";
     }
   }
-  htmlString += "</div>";
-  $('#energy_results').html(htmlString);
+  conversionsHtmlString += "</div>";
+  $('#energy_results').html(conversionsHtmlString); // Display the conversions results in the #energy_results element
+
+  var resultsHtmlString = "";
+  for (const result of results) {
+    resultsHtmlString += '<div class="col mb-5">' +
+      '<div class="card" style="min-width: 200px; min-height: 150px; border-radius: 25px; border: 2px solid white; background-color: #327849">' +
+      '<div class="card-body">' +
+      '<h5 class="card-title text-white">' + result.name + '</h5>' +
+      '<h6 class="card-subtitle text-white">' + result.time.toFixed(2) + " " + result.display + '</h6>' +
+      '<p class="card-text text-white">' + result.pre_name + " " + result.amount + " " + result.type + '</p>' +
+      '</div>' +
+      '</div>' +
+      '</div>';
+  }
+  $('#examples').html(resultsHtmlString); // Display the results from calculateResults in the #examples element
 }
 
     // Attaches an event handler to the input event of the amount input field. Whenever the user inputs a new value, the reload() function is called to update the results.
