@@ -1,5 +1,12 @@
 $( document ).ready(function() {
 
+/**
+ * Converts between different energy types
+ *
+ * @param {number} amount The amount inserted by the user
+ * @param {number} energyType The energy type selected by the user (kWh, Joules)
+ * @return {number} val_all An array of converted values
+ */
     function calulateTo(amount, energyType) {
         var convArr = {"Joules": 1, "KWh": 3.6e6, 'Barrels of Oil': 6383087908.4, 'Calories': 4.18, "Kg of Uranium": 3.9e12, "Kg of Coal": 2.4e7, "Kg of Firewood": 1.6e7}
         var val_joules = amount * convArr[energyType] 
@@ -12,6 +19,12 @@ $( document ).ready(function() {
         }
         return val_all
     }
+
+/**
+ * Calculates the time required to generate the given amount of energy for each conversion type and assigns it to the time property of each conversion object. It also determines a priority value for each conversion based on the calculated time. The conversions array is then sorted based on the priority value.
+ *
+ * @param {number} amount The amount inserted by the user
+ */
     function calculateResults(amount) {
         var conversions = [
             {"name": "Microwave", "pre_name": "using a microwave for", "post_name": "seconds", "type": "Watts", "amount": 900, 'display': 'seconds'}, 
@@ -73,8 +86,15 @@ $( document ).ready(function() {
                             '</div>' +
                            '</div>'
         }
+
+        // The $('#examples').html(htmlString) statement sets the HTML content of an element with the ID "examples" to the generated htmlString. This will display the conversion cards on the web page.
         $('#examples').html(htmlString);
     }
+
+
+/**
+ * Called whenever the amount input field or the energyType select field is changed. It retrieves the values from the input fields, calls the calulateTo() function to get the converted values, and generates HTML based on the results. The HTML is then set as the content of an element with the ID "energy_results" on the web page.
+ */
     function reload() {
         var amount = $('#amount').val();
         var energyType = $('#energyType').val();
@@ -103,9 +123,13 @@ $( document ).ready(function() {
         htmlString = htmlString + "</div>"
         $('#energy_results').html(htmlString);
     }
+
+    // Attaches an event handler to the input event of the amount input field. Whenever the user inputs a new value, the reload() function is called to update the results.
     $('#amount').on('input', function(e) {
         reload();
     })
+
+    // Attaches an event handler to the change event of the energyType select field. Whenever the user selects a new energy type, the reload() function is called to update the results.
     $('#energyType').on('change', function(e) {
         reload();
     })
