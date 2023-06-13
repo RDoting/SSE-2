@@ -30,7 +30,8 @@ $(document).ready(function() {
         post_name: "seconds",
         type: "Watts",
         amount: 900,
-        display: "seconds"
+        display: "seconds",
+        image: "joules.png"
       },
       {
         name: "Electric shower",
@@ -38,7 +39,8 @@ $(document).ready(function() {
         post_name: "seconds",
         type: "Watts",
         amount: 9000,
-        display: "minutes"
+        display: "minutes",
+        image: "joules.png"
       },
       {
         name: "Train",
@@ -46,7 +48,8 @@ $(document).ready(function() {
         post_name: "seconds",
         type: "Watts",
         amount: 2312000,
-        display: "minutes"
+        display: "minutes",
+        image: "joules.png"
       },
       {
         name: "Rocket",
@@ -54,7 +57,8 @@ $(document).ready(function() {
         post_name: "seconds",
         type: "Watts",
         amount: 60000000000,
-        display: "seconds"
+        display: "seconds",
+        image: "joules.png"
       },
       {
         name: "Fridge",
@@ -62,7 +66,8 @@ $(document).ready(function() {
         post_name: "seconds",
         type: "Watts",
         amount: 500,
-        display: "hours"
+        display: "hours",
+        image: "joules.png"
       },
       {
         name: "Wind Turbine",
@@ -70,7 +75,8 @@ $(document).ready(function() {
         post_name: "seconds",
         type: "Watts",
         amount: 1000000,
-        display: "hours"
+        display: "hours",
+        image: "joules.png"
       },
       {
         name: "Solar Panel",
@@ -78,7 +84,8 @@ $(document).ready(function() {
         post_name: "seconds",
         type: "Watts",
         amount: 300,
-        display: "hours"
+        display: "hours",
+        image: "joules.png"
       },
       {
         name: "F1 racecar",
@@ -86,7 +93,8 @@ $(document).ready(function() {
         post_name: "seconds",
         type: "Watts",
         amount: 780000,
-        display: "minutes"
+        display: "minutes",
+        image: "joules.png"
       },
       {
         name: "Steak",
@@ -94,7 +102,8 @@ $(document).ready(function() {
         post_name: "Kg of a steak",
         type: "Joules/KG",
         amount: 9079280,
-        display: "kg"
+        display: "kg",
+        image: "joules.png"
       },
       {
         name: "Rowing",
@@ -102,7 +111,8 @@ $(document).ready(function() {
         post_name: "seconds",
         type: "Watts",
         amount: 300,
-        display: "minutes"
+        display: "minutes",
+        image: "joules.png"
       },
       {
         name: "Usain Bolt",
@@ -110,7 +120,8 @@ $(document).ready(function() {
         post_name: "seconds",
         type: "Watts",
         amount: 2619,
-        display: "seconds"
+        display: "seconds",
+        image: "joules.png"
       },
       {
         name: "TDF Cyclist",
@@ -118,7 +129,8 @@ $(document).ready(function() {
         post_name: "seconds",
         type: "Watts",
         amount: 450,
-        display: "seconds"
+        display: "seconds",
+        image: "joules.png"
       },
       {
         name: "Airconditioning",
@@ -126,7 +138,8 @@ $(document).ready(function() {
         post_name: "seconds",
         type: "Watts",
         amount: 2000,
-        display: "minutes"
+        display: "minutes",
+        image: "joules.png"
       },
       {
         name: "Cheetah",
@@ -134,7 +147,8 @@ $(document).ready(function() {
         post_name: "seconds",
         type: "Watts",
         amount: 500,
-        display: "seconds"
+        display: "seconds",
+        image: "joules.png"
       },
       {
         name: "Sun",
@@ -142,7 +156,8 @@ $(document).ready(function() {
         post_name: "seconds",
         type: "Watts",
         amount: 275,
-        display: "hours"
+        display: "hours",
+        image: "joules.png"
       }
     ];
 
@@ -183,28 +198,30 @@ $(document).ready(function() {
 
     var htmlString = "";
     for (var i of sorted_conversions) {
-      htmlString +=
-        '<div class="col mb-5">' +
-        '<div class="card" style="min-width: 200px; min-height: 150px; border-radius: 25px; border: 2px solid white; background-color: #327849">' +
-        '<div class="card-body">' +
-        '<h5 class="card-title text-white">' +
-        i.name +
-        "</h5>" +
-        '<h6 class="card-subtitle text-white">' +
-        i.time.toFixed(2) +
-        " " +
-        i.display +
-        "</h6>" +
-        '<p class="card-text text-white">' +
-        i.pre_name +
-        " " +
-        i.amount +
-        " " +
-        i.type +
-        "</p>" +
-        "</div>" +
-        "</div>" +
-        "</div>";
+		var imagePath = "images/" + i.image; // Assuming the images are stored in the "images" folder
+	  htmlString +=
+		'<div class="col mb-5">' +
+		'<div class="card" style="min-width: 200px; min-height: 150px; border-radius: 25px; border: 2px solid white; background-color: #327849">' +
+		'<div class="card-body">' +
+		'<h5 class="card-title text-white">' +
+		i.name +
+		'</h5>' +
+		'<img src="' + imagePath + '" alt="' + i.name + '" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">' +
+		'<h6 class="card-subtitle text-white">' +
+		i.time.toFixed(2) +
+		" " +
+		i.display +
+		"</h6>" +
+		'<p class="card-text text-white">' +
+		i.pre_name +
+		" " +
+		i.amount +
+		" " +
+		i.type +
+		"</p>" +
+		"</div>" +
+		"</div>" +
+		"</div>";
     }
 
     $("#examples").html(htmlString);
